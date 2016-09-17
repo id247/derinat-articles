@@ -1,0 +1,151 @@
+/*
+SCSS variables are information about icon's compiled state, stored under its original file name
+
+.icon-home {
+  width: $icon-home-width;
+}
+
+The large array-like variables contain all information about a single icon
+$icon-home: x y offset_x offset_y width height total_width total_height image_path;
+
+At the bottom of this section, we provide information about the spritesheet itself
+$spritesheet: width height image $spritesheet-sprites;
+*/
+$checkbox-checked-name: 'checkbox-checked';
+$checkbox-checked-x: 240px;
+$checkbox-checked-y: 52px;
+$checkbox-checked-offset-x: -240px;
+$checkbox-checked-offset-y: -52px;
+$checkbox-checked-width: 16px;
+$checkbox-checked-height: 16px;
+$checkbox-checked-total-width: 350px;
+$checkbox-checked-total-height: 161px;
+$checkbox-checked-image: '../images/sprite.png';
+$checkbox-checked: (240px, 52px, -240px, -52px, 16px, 16px, 350px, 161px, '../images/sprite.png', 'checkbox-checked', );
+$checkbox-name: 'checkbox';
+$checkbox-x: 256px;
+$checkbox-y: 52px;
+$checkbox-offset-x: -256px;
+$checkbox-offset-y: -52px;
+$checkbox-width: 16px;
+$checkbox-height: 16px;
+$checkbox-total-width: 350px;
+$checkbox-total-height: 161px;
+$checkbox-image: '../images/sprite.png';
+$checkbox: (256px, 52px, -256px, -52px, 16px, 16px, 350px, 161px, '../images/sprite.png', 'checkbox', );
+$derinat-logo-name: 'derinat-logo';
+$derinat-logo-x: 0px;
+$derinat-logo-y: 0px;
+$derinat-logo-offset-x: 0px;
+$derinat-logo-offset-y: 0px;
+$derinat-logo-width: 202px;
+$derinat-logo-height: 161px;
+$derinat-logo-total-width: 350px;
+$derinat-logo-total-height: 161px;
+$derinat-logo-image: '../images/sprite.png';
+$derinat-logo: (0px, 0px, 0px, 0px, 202px, 161px, 350px, 161px, '../images/sprite.png', 'derinat-logo', );
+$hand-liked-name: 'hand--liked';
+$hand-liked-x: 202px;
+$hand-liked-y: 52px;
+$hand-liked-offset-x: -202px;
+$hand-liked-offset-y: -52px;
+$hand-liked-width: 19px;
+$hand-liked-height: 21px;
+$hand-liked-total-width: 350px;
+$hand-liked-total-height: 161px;
+$hand-liked-image: '../images/sprite.png';
+$hand-liked: (202px, 52px, -202px, -52px, 19px, 21px, 350px, 161px, '../images/sprite.png', 'hand--liked', );
+$hand-name: 'hand';
+$hand-x: 221px;
+$hand-y: 52px;
+$hand-offset-x: -221px;
+$hand-offset-y: -52px;
+$hand-width: 19px;
+$hand-height: 21px;
+$hand-total-width: 350px;
+$hand-total-height: 161px;
+$hand-image: '../images/sprite.png';
+$hand: (221px, 52px, -221px, -52px, 19px, 21px, 350px, 161px, '../images/sprite.png', 'hand', );
+$logotype-name: 'logotype';
+$logotype-x: 202px;
+$logotype-y: 0px;
+$logotype-offset-x: -202px;
+$logotype-offset-y: 0px;
+$logotype-width: 148px;
+$logotype-height: 52px;
+$logotype-total-width: 350px;
+$logotype-total-height: 161px;
+$logotype-image: '../images/sprite.png';
+$logotype: (202px, 0px, -202px, 0px, 148px, 52px, 350px, 161px, '../images/sprite.png', 'logotype', );
+$spritesheet-width: 350px;
+$spritesheet-height: 161px;
+$spritesheet-image: '../images/sprite.png';
+$spritesheet-sprites: ($checkbox-checked, $checkbox, $derinat-logo, $hand-liked, $hand, $logotype, );
+$spritesheet: (350px, 161px, '../images/sprite.png', $spritesheet-sprites, );
+
+/*
+The provided mixins are intended to be used with the array-like variables
+
+.icon-home {
+  @include sprite-width($icon-home);
+}
+
+.icon-email {
+  @include sprite($icon-email);
+}
+
+Example usage in HTML:
+
+`display: block` sprite:
+<div class="icon-home"></div>
+
+To change `display` (e.g. `display: inline-block;`), we suggest using a common CSS class:
+
+// CSS
+.icon {
+  display: inline-block;
+}
+
+// HTML
+<i class="icon icon-home"></i>
+*/
+@mixin sprite-width($sprite) {
+  width: nth($sprite, 5);
+}
+
+@mixin sprite-height($sprite) {
+  height: nth($sprite, 6);
+}
+
+@mixin sprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 3);
+  $sprite-offset-y: nth($sprite, 4);
+  background-position: $sprite-offset-x  $sprite-offset-y;
+}
+
+@mixin sprite-image($sprite) {
+  $sprite-image: nth($sprite, 9);
+  background-image: url(#{$sprite-image});
+}
+
+@mixin sprite($sprite) {
+  @include sprite-image($sprite);
+  @include sprite-position($sprite);
+  @include sprite-width($sprite);
+  @include sprite-height($sprite);
+}
+
+/*
+The `sprites` mixin generates identical output to the CSS template
+  but can be overridden inside of SCSS
+
+@include sprites($spritesheet-sprites);
+*/
+@mixin sprites($sprites) {
+  @each $sprite in $sprites {
+    $sprite-name: nth($sprite, 10);
+    .#{$sprite-name} {
+      @include sprite($sprite);
+    }
+  }
+}
