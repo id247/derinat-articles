@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 
 import Button from '../../components/common/Button';
 
-import PostQuoted from '../../components/forum/PostQuoted';
+import CommentQuoted from '../../components/comments/CommentQuoted';
 
-import * as forumFormActions from '../../actions/forum-form';
+import * as commentsFormActions from '../../actions/comments-form';
 
 const FormQuote = (props) => {
 	if (!props.quote){
@@ -13,20 +13,20 @@ const FormQuote = (props) => {
 	}
 
 	return (
-		<div className="forum-form__quote forum-form-quote">
+		<div className="comments-form__quote comments-form-quote">
 
-			<div className="forum-form-quote__top">
+			<div className="comments-form-quote__top">
 
-				<div className="forum-form-quote__title">
+				<div className="comments-form-quote__title">
 					Цитата:
 				</div>
 
-				<div className="forum-form-quote__delete-placeholder">
+				<div className="comments-form-quote__delete-placeholder">
 
 					<Button
-						mixClass="forum-form-quote__button"
-						color="blue-light"
-						size="s"
+						mixClass="comments-form-quote__button"
+						color="orange"
+						size="xs"
 						onClickHandler={props.deleteQuote}
 					>
 						&times; Отменить цитирование
@@ -36,9 +36,9 @@ const FormQuote = (props) => {
 
 			</div>
 
-			<PostQuoted 
-				mixClass="forum-form-quote__post" 
-				post={props.quote}
+			<CommentQuoted 
+				mixClass="comments-form-quote__post" 
+				comment={props.quote}
 			/>
 			
 		</div>
@@ -46,11 +46,11 @@ const FormQuote = (props) => {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-	quote: state.forumForm.quote,
+	quote: state.commentsForm.quote,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-	deleteQuote: () => dispatch(forumFormActions.deleteQuote()),
+	deleteQuote: () => dispatch(commentsFormActions.deleteQuote()),
 });
 
 FormQuote.propTypes = {

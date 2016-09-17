@@ -1,12 +1,12 @@
 import React from 'react';
 
-const PostLikes = (props) => {
+const CommentLikes = (props) => {
 
 	const counter = props.counter ? props.counter : false;
 	const value = counter ? props.counter.Value : 0;
 
 	return (
-		<div className={('post__likes likes ' + (counter && counter.Liked ? 'likes--liked' : ''))}>
+		<div className={('comment__likes likes ' + (counter && counter.Liked ? 'likes--liked' : ''))}>
 
 			<button 
 				className="likes__button"
@@ -24,7 +24,7 @@ const PostLikes = (props) => {
 	);
 };
 
-PostLikes.propTypes = {
+CommentLikes.propTypes = {
 	mixClass: React.PropTypes.string,
 	counter: React.PropTypes.oneOfType([
     	React.PropTypes.bool,
@@ -42,4 +42,4 @@ PostLikes.propTypes = {
 //	Symbol: React.PropTypes.symbol.isRequired,
 };
 
-export default PostLikes;
+export default CommentLikes;

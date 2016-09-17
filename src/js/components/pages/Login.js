@@ -16,29 +16,26 @@ class Login extends React.Component {
 	}
 
 	render(){
-
 		const { props } = this;
 		
-		const isCompetition = window.location.href.indexOf('competition') > -1;
-
 		return (
-			<div className={( (props.mixClass ? props.mixClass : '') + ' forum-login')}>
-
-				<h1 className="section__title forum-login__title">
-					{(!isCompetition ? 'Задайте свой вопрос психологу' : 'Отправьте свой совет на конкурс')}
-				</h1>
-
-				<div className="forum-login__button-placeholder">
-
-					<Button 
-						size="m"
-						color="blue-dark"
-						type="button"
-						onClickHandler={props.login}
-					>
-						Войти через Дневник.ру
-					</Button>
+			<div className="comments__section comments-login">
 				
+				<div className="comments__wrap comments-login__wrap">
+
+					<div className="comments-login__button-placeholder">
+
+						<Button 
+							size="m"
+							color="orange"
+							type="button"
+							onClickHandler={props.login}
+						>
+							Войти через Дневник.ру
+						</Button>
+					
+					</div>
+
 				</div>
 
 			</div>
@@ -52,7 +49,6 @@ Login.propTypes = {
 
 const mapStateToProps = (state, ownProps) => ({
 	profile: state.user.profile,
-	label: state.posts.label,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({ 

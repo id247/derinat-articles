@@ -2,23 +2,23 @@ import React from 'react';
 
 import Button from '../../components/common/Button';
 
-const PostAdmin = (props) => {
+const CommentAdmin = (props) => {
 
 	if (!props.visible){
 		return null;
 	}
 
 	return(
-		<div className={( (props.mixClass ? props.mixClass : '') + ' post-admin')}>
+		<div className={( (props.mixClass ? props.mixClass : '') + ' comment-admin')}>
 
 			{
 				(props.isSystem)
 				?
 				<Button 
-					mixClass="post-admin__button"
-					color="blue-light"
-					size="s"
-					onClickHandler={props.deletePostHandler}
+					mixClass="comment-admin__button"
+					color="orange"
+					size="xs"
+					onClickHandler={props.deleteCommentHandler}
 				>
 					Удалить
 				</Button>
@@ -27,10 +27,10 @@ const PostAdmin = (props) => {
 			}
 
 			<Button 
-				mixClass="post-admin__button"
-				color="blue-light"
-				size="s"
-				onClickHandler={props.editPostHandler}
+				mixClass="comment-admin__button"
+				color="orange"
+				size="xs"
+				onClickHandler={props.editCommentHandler}
 			>
 				Редактировать
 			</Button>
@@ -40,11 +40,11 @@ const PostAdmin = (props) => {
 	)
 };
 
-PostAdmin.propTypes = {
+CommentAdmin.propTypes = {
 	mixClass: React.PropTypes.string,
 	visible: React.PropTypes.bool.isRequired,
-	deletePostHandler: React.PropTypes.func.isRequired,
-	editPostHandler: React.PropTypes.func.isRequired,
+	deleteCommentHandler: React.PropTypes.func.isRequired,
+	editCommentHandler: React.PropTypes.func.isRequired,
 	isSystem: React.PropTypes.bool.isRequired,
 	
 //	Array: React.PropTypes.array.isRequired,
@@ -56,4 +56,4 @@ PostAdmin.propTypes = {
 //	Symbol: React.PropTypes.symbol.isRequired,
 };
 
-export default PostAdmin;
+export default CommentAdmin;

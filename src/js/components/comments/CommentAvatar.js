@@ -1,21 +1,17 @@
 import React from 'react';
 
-const FormPostAdded = (props) => {
+const CommentAvatar = (props) => (
+	<div className="comment__avatar-placeholder">
 
-	if (!props.postAdded){
-		return null;
-	}
+		<img src={props.image} alt="" className="comment__avatar" />
 
-	return(
-		<div className="forum-form__post-added text">
-			Спасибо! Ваше сообщение было отправлено!
-		</div>
-	);
-};
+	</div>
+);
 
-FormPostAdded.propTypes = {
+CommentAvatar.propTypes = {
 	mixClass: React.PropTypes.string,
-	postAdded: React.PropTypes.bool.isRequired,
+	image: React.PropTypes.string.isRequired,
+	
 //	Array: React.PropTypes.array.isRequired,
 //	Bool: React.PropTypes.bool.isRequired,
 //	Func: React.PropTypes.func.isRequired,
@@ -25,4 +21,4 @@ FormPostAdded.propTypes = {
 //	Symbol: React.PropTypes.symbol.isRequired,
 };
 
-export default FormPostAdded;
+export default CommentAvatar;

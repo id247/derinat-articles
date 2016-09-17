@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { ForumOptions } from 'appSettings';
+import { commentsOptions } from 'appSettings';
 
 import * as asyncActions from '../../actions/async';
 
@@ -15,27 +15,27 @@ class User extends React.Component {
 	render(){
 		const { props } = this;
 
-		const avatar = props.profile.photoMedium ? props.profile.photoMedium : ForumOptions.anonAvatar
+		const avatar = props.profile.photoMedium ? props.profile.photoMedium : commentsOptions.anonAvatar
 
 		return(
-			<div className={( (props.mixClass ? props.mixClass : '') + ' forum-user')}>
+			<div className={( (props.mixClass ? props.mixClass : '') + ' comments-user')}>
 
-				<div className="forum-user__avatar-placeholder">
+				<div className="comments-user__avatar-placeholder">
 
-					<img src={avatar} alt="" className="forum-user__avatar" />
+					<img src={avatar} alt="" className="comments-user__avatar" />
 
 				</div>
 
-				<div className="forum-user__content">
+				<div className="comments-user__content">
 				
-					<div className="forum-user__name">
+					<div className="comments-user__name">
 						Вы вошли как {props.profile.firstName}  {props.profile.lastName} 
 					</div>
 
-					<div className="forum-user__logout">
+					<div className="comments-user__logout">
 
 						<button 
-							className="button button--s button--blue-light"
+							className="button button--xs button--orange"
 							onClick={this._logoutHandler()}
 						>
 							Выход

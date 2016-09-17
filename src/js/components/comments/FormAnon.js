@@ -1,9 +1,9 @@
 import React from 'react';
 
 const FormAnon = (props) => (
-		<div className="forum-form__action-placeholder forum-anon">
+		<div className="comments-form__action-placeholder comments-anon">
 
-			<div className="forum-anon__checkbox">
+			<div className="comments-anon__checkbox">
 
 				<label className="checkbox">
 
@@ -22,7 +22,7 @@ const FormAnon = (props) => (
 
 			</div>
 
-			<div className="forum-anon__text">
+			<div className="comments-anon__text">
 				Имя и аватар не будут видны никому
 			</div>
 

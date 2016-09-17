@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 
-import * as actions from '../actions/posts';
+import * as actions from '../actions/comments';
 
 export function list(state = [], action) {
 	switch (action.type) {
-		case actions.POSTS_ADD_ITEMS:
-			return  action.payload.posts.Keys;
+		case actions.COMMENTS_ADD_ITEMS:
+			return  action.payload.comments.Keys;
 
 		default:
 			return state;
@@ -14,7 +14,7 @@ export function list(state = [], action) {
 
 export function counters(state = [], action) {
 	switch (action.type) {
-		case actions.POSTS_ADD_ITEMS:
+		case actions.COMMENTS_ADD_ITEMS:
 			return  action.payload.counters.Counters;
 
 		default:
@@ -23,8 +23,8 @@ export function counters(state = [], action) {
 }
 export function itemsTotalCount(state = 0, action) {
 	switch (action.type) {
-		case actions.POSTS_ADD_ITEMS:
-			return  action.payload.posts.Paging.count;
+		case actions.COMMENTS_ADD_ITEMS:
+			return  action.payload.comments.Paging.count;
 
 		default:
 			return state;
@@ -33,7 +33,7 @@ export function itemsTotalCount(state = 0, action) {
 
 export function page(state = 1, action) {
 	switch (action.type) {
-		case actions.POSTS_SET_PAGE:
+		case actions.COMMENTS_SET_PAGE:
 			return  action.payload;
 
 		default:
@@ -41,9 +41,9 @@ export function page(state = 1, action) {
 	}
 }
 
-export function label(state = 'girls', action) {
+export function label(state = 'comments', action) {
 	switch (action.type) {
-		case actions.POSTS_SET_LABEL:
+		case actions.COMMENTS_SET_LABEL:
 			return  action.payload;
 
 		default:
@@ -52,10 +52,10 @@ export function label(state = 'girls', action) {
 }
 export function edit(state = false, action) {
 	switch (action.type) {
-		case actions.POSTS_EDIT_POST_ON:
+		case actions.COMMENTS_EDIT_ON:
 			return action.payload;
 			
-		case actions.POSTS_EDIT_POST_OFF:
+		case actions.COMMENTS_EDIT_OFF:
 			return false;
 
 		default:
@@ -63,7 +63,7 @@ export function edit(state = false, action) {
 	}
 }
 
-export const posts = combineReducers({
+export const comments = combineReducers({
 	list,
 	counters,
 	itemsTotalCount,

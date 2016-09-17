@@ -1,7 +1,7 @@
 import API from '../api/api';
 import OAuth from '../api/hello';
 
-import { ForumOptions } from 'appSettings';
+import { CommentsOptions } from 'appSettings';
 
 import * as visual from '../helpers/visual.js';
 
@@ -9,8 +9,8 @@ import * as loadingActions 		from '../actions/loading';
 import * as errorActions 		from '../actions/error';
 import * as userActions 		from '../actions/user';
 import * as pageActions 		from '../actions/page';
-import * as postsActions 		from '../actions/posts';
-import * as forumFormActions 	from '../actions/forum-form';
+import * as commentsActions 	from '../actions/comments';
+import * as commentsFormActions from '../actions/comments-form';
 
 
 //error handler
@@ -98,12 +98,11 @@ export function getInitialData() {
 			dispatch(loadingActions.loadingHide());
 
 			dispatch(userActions.userSet(user));
-			//dispatch(pageActions.setPageWithoutHistory('/'));
+			dispatch(pageActions.setPageWithoutHistory('/'));
 		})
 		.catch( err => { 
 			dispatch(loadingActions.loadingHide());
 
-			dispatch(pageActions.setPageWithoutHistory('/login'));
 			dispatch(catchError(err)); 
 		})
 		.then( () => {			
@@ -113,36 +112,38 @@ export function getInitialData() {
 }
 
 
-//forum
+//comments
 
-export function addPost(value) {
+export function addComment(value) {
 
 	return (dispatch, getState) => {
 		dispatch(loadingActions.loadingShow());	
-		dispatch(forumFormActions.postNotAdded());
+		dispatch(commentsFormActions.commentNotAdded());
 
-		const label = getState().posts ? getState().posts.label : 'girls';
-		const pageNumber = getState().posts ? getState().posts.page : 1;
+		const label = getState().comments ? getState().comments.label : 'comments';
+		const pageNumber = getState().comments ? getState().comments.page : 1;
 		
+		const userId = getState().user.profile.id;
+
 		const data = {
-			key: 'post-' + new Date().getTime(),
+			key: 'comment-' + userId + '-' + new Date().getTime(),
 			value: value,
 			permissionLevel: 'Public',
-			label: ForumOptions.postsLabel[label],
+			label: label,
 		}
 
 		return API.addKeyToDB(data)
 		.then( (res) => {	
 			dispatch(loadingActions.loadingHide());
 
-			dispatch(postAdded());
+			dispatch(commentAdded());
 
 			setTimeout( () => {
-				dispatch(forumFormActions.postNotAdded());
+				dispatch(commentsFormActions.commentNotAdded());
 			}, 3000);
 
 			if (pageNumber === 1){
-				dispatch(getPosts());
+				dispatch(getComments());
 			}else{
 				dispatch(setPage(1, false));
 			}
@@ -156,42 +157,42 @@ export function addPost(value) {
 	}
 }
 
-export function postAdded() {
+export function commentAdded() {
 
 	return (dispatch, getState) => {
-		dispatch(forumFormActions.messageClear());
-		dispatch(forumFormActions.deleteQuote());
-		dispatch(forumFormActions.postAdded());
+		dispatch(commentsFormActions.messageClear());
+		dispatch(commentsFormActions.deleteQuote());
+		dispatch(commentsFormActions.commentAdded());
 	}
 }
 
-export function getPosts() {
+export function getComments() {
 
-	console.log('get posts');
+	console.log('get comments');
 
 	return (dispatch, getState) => {
 		dispatch(loadingActions.loadingShow());	
 
-		const pageNumber = getState().posts ? getState().posts.page : 1;
-		const label = getState().posts ? getState().posts.label : 'girls';
+		const pageNumber = getState().comments ? getState().comments.page : 1;
+		const label = getState().comments ? getState().comments.label : 'comments';
 
-		let posts;
+		let comments;
 		let counters;
 
-		return API.getKeysFromDBdesc(ForumOptions.postsLabel[label], pageNumber, ForumOptions.pageSize)
+		return API.getKeysFromDBdesc(label, pageNumber, CommentsOptions.pageSize)
 		.then( res => {
-			posts = res;
-			return API.getCoutersFromDBdesc(ForumOptions.postsLabel[label]);
+			comments = res;
+			return API.getCoutersFromDBdesc(label);
 		})
 		.then( res => {
 			counters = res;
 
 			dispatch(loadingActions.loadingHide());
 
-			console.log(posts);
+			console.log(comments.Keys);
 			console.log(counters);
 
-			posts.Keys = posts.Keys && posts.Keys.map( key => {
+			comments.Keys = comments.Keys.map( key => {
 				key.counter = false;
 
 				counters.Counters && counters.Counters.map( counter => {
@@ -203,8 +204,8 @@ export function getPosts() {
 				return key;
 			});
 
-			//console.log(posts, counters);
-			dispatch(postsActions.postsAddItems({posts, counters}));
+			console.log(comments, counters);
+			dispatch(commentsActions.addItems({comments: comments, counters: counters}));
 		})
 		.catch( err => { 
 			dispatch(loadingActions.loadingHide());
@@ -214,7 +215,7 @@ export function getPosts() {
 	}
 }
 
-export function deletePost(postId) {
+export function deleteComment(commentId) {
 
 	return (dispatch, getState) => {
 
@@ -230,13 +231,13 @@ export function deletePost(postId) {
 
 		dispatch(loadingActions.loadingShow());	
 
-		return API.deleteKeyFromDB(postId)
+		return API.deleteKeyFromDB(commentId)
 		.then( (res) => {	
 			console.log(res);
 			dispatch(loadingActions.loadingHide());
 
 			if (res.type !== 'systemForbidden'){
-				dispatch(getPosts());
+				dispatch(getComments());
 			}
 		})
 		.catch( err => { 
@@ -248,17 +249,17 @@ export function deletePost(postId) {
 }
 
 
-export function editPost(post, data) {
+export function editComment(comment, data) {
 
 	return (dispatch, getState) => {
 
-		const label = getState().posts ? getState().posts.label : 'girls';
-		const pageNumber = getState().posts ? getState().posts.page : 1;
+		const label = getState().comments ? getState().comments.label : 'comments';
+		const pageNumber = getState().comments ? getState().comments.page : 1;
 
 		let oldValue 
 
 		try{
-			oldValue = JSON.parse(decodeURIComponent(post.Value));
+			oldValue = JSON.parse(decodeURIComponent(comment.Value));
 		}catch(e){
 			console.error(e);
 			return false;
@@ -317,20 +318,20 @@ export function editPost(post, data) {
 
 		newValue = encodeURIComponent(JSON.stringify(newValue));
 
-		const newPost = {...post, ...{Value: newValue}};
+		const newComment = {...comment, ...{Value: newValue}};
 
-		console.log(post);
-		console.log(newPost);
+		console.log(comment);
+		console.log(newComment);
 		//return;
 
 
-		return API.addKeyToDB(newPost)
+		return API.addKeyToDB(newComment)
 		.then( (res) => {	
 			dispatch(loadingActions.loadingHide());
 			
-			dispatch(postsActions.postsEditOff());
+			dispatch(commentsActions.editOff());
 
-			dispatch(getPosts());
+			dispatch(getComments());
 
 		})
 		.catch( err => { 
@@ -346,15 +347,15 @@ export function vote(keyId) {
 	return (dispatch, getState) => {
 		dispatch(loadingActions.loadingShow());	
 		
-		const label = getState().posts ? getState().posts.label : 'girls';
+		const label = getState().comments ? getState().comments.label : 'comments';
 
-		return API.voteForCounterFromDB(keyId, ForumOptions.postsLabel[label])
+		return API.voteForCounterFromDB(keyId, label)
 		.then( (res) => {	
 			console.log(res);
 			dispatch(loadingActions.loadingHide());
 
 			if (res.type !== 'systemForbidden'){
-				dispatch(getPosts());
+				dispatch(getComments());
 			}
 		})
 		.catch( err => { 
@@ -368,9 +369,9 @@ export function vote(keyId) {
 export function addQuote(quote) {
 
 	return dispatch => {
-		
-		dispatch(forumFormActions.addQuote(quote)); 
-		visual.scrollTo(document.body, 0, 600);
+
+		dispatch(commentsFormActions.addQuote(quote)); 
+		visual.scrollTo(document.body, document.querySelector('.comments'), 600);
 
 	}
 }
@@ -382,30 +383,30 @@ export function setPage(pageId) {
 
 		const pageUrl = pageId > 1 ? '/page/' + pageId : '/';
 
-		if (getState().posts && getState().posts.page !== pageId){
+		if (getState().comments && getState().comments.page !== pageId){
 			dispatch(pageActions.setPage(pageUrl)); 		
-			dispatch(postsActions.setPage(pageId)); 
-			visual.scrollTo(document.body, 0, 0);
+			dispatch(commentsActions.setPage(pageId)); 
+			visual.scrollTo(document.body, document.querySelector('.comments'), 200);
 		}	
 		
 	}
 }
 
-//forum form
-export function forumFormSubmit() {
+//comments form
+export function commentsFormSubmit() {
 
 	return (dispatch, getState) => {
 
 		const state = getState();
 
-		const message = state.forumForm.message;
-		const anon = state.forumForm.anon;
-		const quote = state.forumForm.quote;
+		const message = state.commentsForm.message;
+		const anon = state.commentsForm.anon;
+		const quote = state.commentsForm.quote;
 
 		const { profile } = state.user;
 
 		let user;
-		const anonAvatar = ForumOptions.anonAvatar;
+		const anonAvatar = CommentsOptions.anonAvatar;
 
 		if (!anon){
 			user = {
@@ -433,7 +434,7 @@ export function forumFormSubmit() {
 
 		value = encodeURIComponent(JSON.stringify(value));
 
-		dispatch(addPost(value));
+		dispatch(addComment(value));
 		
 	}
 }

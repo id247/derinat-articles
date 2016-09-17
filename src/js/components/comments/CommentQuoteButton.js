@@ -2,19 +2,19 @@ import React from 'react';
 
 import Button from '../../components/common/Button';
 
-const PostQuoteButton = (props) => {
+const CommentQuoteButton = (props) => {
 	
 	if (!props.visible){
 		return null;
 	}
 
 	return(
-		<div className="post__quote-it-placeholder">
+		<div className="comment__quote-it-placeholder">
 
 			<Button
-				mixClass="post__quote-it"
-				color="blue-light"
-				size="s"
+				mixClass="comment__quote-it"
+				color="orange"
+				size="xs"
 				onClickHandler={props.onClickHandler}
 			>
 				Ответить
@@ -24,7 +24,7 @@ const PostQuoteButton = (props) => {
 	)
 };
 
-PostQuoteButton.propTypes = {
+CommentQuoteButton.propTypes = {
 	mixClass: React.PropTypes.string,
 	onClickHandler: React.PropTypes.func.isRequired,
     visible: React.PropTypes.bool.isRequired,
@@ -37,4 +37,4 @@ PostQuoteButton.propTypes = {
 //	Symbol: React.PropTypes.symbol.isRequired,
 };
 
-export default PostQuoteButton;
+export default CommentQuoteButton;

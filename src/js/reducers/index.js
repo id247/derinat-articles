@@ -4,16 +4,16 @@ import { error } from './error';
 import { user } from './user';
 import { loading } from './loading';
 import { page } from './page';
-import { posts } from './posts';
-import { forumForm } from './forum-form';
+import { comments } from './comments';
+import { commentsForm } from './comments-form';
 
 const rootReducer = combineReducers({
 	error,
 	loading,
 	user,
 	page,
-	posts,
-	forumForm,
+	comments,
+	commentsForm,
 });
 
 export default rootReducer;

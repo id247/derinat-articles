@@ -10,9 +10,9 @@ const ErrorMessage = (props) => {
 	}
 
 	return (
-		<div className={( (props.mixClass ? props.mixClass : '') + ' error-message')}>
+		<div className={( (props.mixClass ? props.mixClass : '') + ' comments-error-message')}>
 
-			<div className="error-message__text">
+			<div className="comments-error-message__text">
 				{props.error}
 			</div>
 

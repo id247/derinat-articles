@@ -3,6 +3,8 @@ $comments-pink: #fce3e8;
 $comments-pink-light: #fef1f4;
 $comments-grey: #f5f5f5;
 
+$comments-bg: #ffc0c5;
+
 $comments-text: #262626;
 $comments-text-grey: #a2a2a2;
 
@@ -60,13 +62,10 @@ $comments-text-grey: #a2a2a2;
 	justify-content: center;
 	
 	&__content{
-		background: url(../images/svg/loader.svg) 50% 0 no-repeat;	
 		width: 40px;
 		height: 40px;
 		display: inline-block;
 		animation: spin .6s infinite linear;
-		text-indent: -9999px;
-		content: '';
 	}
 
 	&--visible{
@@ -85,6 +84,11 @@ $comments-text-grey: #a2a2a2;
  * pagination
  * ========================================================================== */
 .pagination{
+
+	&__title{
+		text-align: center;
+		margin: 0 0 20px;
+	}
 
 	&__list{
 		text-align: center;
@@ -119,16 +123,13 @@ $comments-text-grey: #a2a2a2;
 	&__href{
 		font-size: 22px;
 		font-weight: 300;
-		color: #fff;
-		background: $blue-light;
-		display: block;
-		padding: 3px;
 		//border: 1px solid $blue-middle;
+		
+		border-bottom: 1px solid;
 
 		&--active{
 			//color: $grey;
-			background: none;
-			color: $blue-middle;
+			border-color: transparent;
 		}
 
 		&:hover{
@@ -141,11 +142,16 @@ $comments-text-grey: #a2a2a2;
  * ========================================================================== */
 
 .comments{
-	padding: 50px 0;
 	position: relative;
 
+	&__title{
+		font-size: 30px;
+		font-weight: 400;
+		margin: 0 0 30px;
+	}
+
 	&__loader{
-		position: fixed;
+		position: absolute;
 		top: 0;
 		left: 0;
 		right: 0;
@@ -161,11 +167,15 @@ $comments-text-grey: #a2a2a2;
 		z-index: 550;
 	}
 
+	&__section{
+		margin: 0 0 20px;
+	}
+
 	&__form{
 		margin: 0 0 20px;
 	}
 
-	&__posts{
+	&__comments{
 		margin: 0 0 50px;
 	}
 
@@ -175,16 +185,32 @@ $comments-text-grey: #a2a2a2;
 
 }
 
-.error-message{
+.comments-error-message{
 	padding: 10px;
 	background: #ff7f7f;
 }
 
+/* ==========================================================================
+ * comments-login
+ * ========================================================================== */
+
+
+.comments-login{
+	
+	text-align: center;
+
+}
+
+
+/* ==========================================================================
+ * comments-form
+ * ========================================================================== */
+
 
 .comments-form{
-	background: $comments-blue;
+	background: $comments-bg;
 	padding: 35px;
-	//border-radius: 8px;
+	border-radius: 8px;
 
 	@media( max-width: 768px){
 		padding: 15px;
@@ -232,14 +258,13 @@ $comments-text-grey: #a2a2a2;
 	}
 
 	&__button{
-		border-radius: 0;
 	}
 
 	&__quote{
 		margin: 0 0 30px;
 	}
 
-	&__post-added{
+	&__comment-added{
 		margin: 0 0 30px;
 	}
 }
@@ -249,7 +274,7 @@ $comments-text-grey: #a2a2a2;
 
 	&__avatar-placeholder{
 		float: left;
-		border-radius: 50%;
+		border-radius: 8px;
 		width: 45px;
 		height: 45px;
 		overflow: hidden;
@@ -277,7 +302,7 @@ $comments-text-grey: #a2a2a2;
 
 	@include clearfix;
 
-	&__post{
+	&__comment{
 		margin: 0 0 10px;
 	}
 
@@ -330,11 +355,11 @@ $comments-text-grey: #a2a2a2;
 }
 
 /* ==========================================================================
- * posts
+ * comments-list
  * ========================================================================== */
 
 
-.posts{
+.comments-list{
 	
 	&__list{
 		margin: 0 0 50px;
@@ -353,13 +378,13 @@ $comments-text-grey: #a2a2a2;
 }
 
 /* ==========================================================================
- * post
+ * comment
  * ========================================================================== */
 
-.post{
+.comment{
 	background: $comments-grey;
 	padding: 35px;
-	//border-radius: 8px;
+	border-radius: 8px;
 
 	@media( max-width: 768px){
 		padding: 15px;
@@ -373,7 +398,7 @@ $comments-text-grey: #a2a2a2;
 		padding: 10px;
 		background: rgba(255,255,255,.7);
 
-		.post{
+		.comment{
 			
 			&__avatar-placeholder{
 				width: 45px;
@@ -396,7 +421,7 @@ $comments-text-grey: #a2a2a2;
 
 	&__avatar-placeholder{
 		float: left;
-		border-radius: 50%;
+		border-radius: 8px;
 		width: 65px;
 		height: 65px;
 		overflow: hidden;
@@ -479,10 +504,10 @@ $comments-text-grey: #a2a2a2;
 }
 
 /* ==========================================================================
- * post-admin
+ * comment-admin
  * ========================================================================== */
 
-.post-admin{
+.comment-admin{
 
 	&__title{
 		margin: 0 0 10px;
@@ -494,10 +519,10 @@ $comments-text-grey: #a2a2a2;
 }
 
 /* ==========================================================================
- * post-editor
+ * comment-editor
  * ========================================================================== */
 
-.post-editor{
+.comment-editor{
 
 	&__row{
 		margin: 0 0 15px;

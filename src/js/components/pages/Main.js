@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import * as asyncActions from '../../actions/async';
-import * as postsActions from '../../actions/posts';
+//import * as asyncActions from '../../actions/async';
 
-import Form from '../../components/forum/Form';
-import Posts from '../../components/forum/Posts';
-import User from '../../components/forum/User';
+import Form from '../../components/comments/Form';
+import Comments from '../../components/comments/Comments';
+import User from '../../components/comments/User';
 
 class Main extends React.Component {
 
@@ -16,10 +15,10 @@ class Main extends React.Component {
 			return null;
 		}
 		return(
-			<div className="section__wrap forum__wrap">
-				<User mixClass="forum__user" />
-				<Form mixClass="forum__form" />
-				<Posts mixClass="forum__posts" pageNumber={props.params.pageNumber} />
+			<div className="comments__content">
+				<User mixClass="comments__user" />
+				<Form mixClass="comments__form" />
+				<Comments mixClass="comments__list" />
 			</div>
 		);
 	}
@@ -32,10 +31,6 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-	init: () => dispatch(asyncActions.init()), 
-	setPage: (pageId) => dispatch(asyncActions.setPage(pageId)),
-	setPostsPage: (pageId) => dispatch(postsActions.setPage(pageId)),
-	setPostsLabel: (label) => dispatch(postsActions.setPostsLabel(label)),
 });
 
 Main.propTypes = {

@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 
 import Button from '../../components/common/Button';
 
-import FormQuote 		from '../../components/forum/FormQuote';
-import FormPostAdded 	from '../../components/forum/FormPostAdded';
-import FormAnon 		from '../../components/forum/FormAnon';
+import FormQuote 		from '../../components/comments/FormQuote';
+import FormPostAdded 	from '../../components/comments/FormPostAdded';
+import FormAnon 		from '../../components/comments/FormAnon';
 
 import * as asyncActions 		from '../../actions/async';
-import * as forumFormActions 	from '../../actions/forum-form';
+import * as commentsFormActions 	from '../../actions/comments-form';
 
 
 class Form extends React.Component {
@@ -19,7 +19,7 @@ class Form extends React.Component {
 			return false;
 		}
 
-		this.props.forumFormSubmit();
+		this.props.commentsFormSubmit();
 	}
 
 	_formValidate(){
@@ -34,7 +34,7 @@ class Form extends React.Component {
 		return true;
 	}
 
-	_forumFormChange(data){
+	_commentsFormChange(data){
 		this.props.formChange(data);
 	}
 
@@ -44,14 +44,14 @@ class Form extends React.Component {
 	}
 
 	_messageChangeHandler = () => (e) => {
-		const data = {...this.props.forumForm, ...{message: e.target.value}}
-		this._forumFormChange(data);
+		const data = {...this.props.commentsForm, ...{message: e.target.value}}
+		this._commentsFormChange(data);
 		this._formValidate();
 	}
 
 	_anonChangeHandler = () => (e) => {
-		const data = {...this.props.forumForm, ...{anon: e.target.checked}}
-		this._forumFormChange(data);
+		const data = {...this.props.commentsForm, ...{anon: e.target.checked}}
+		this._commentsFormChange(data);
 	}
 
 	_deleteQuoteHandler = () => (e) => {
@@ -61,37 +61,34 @@ class Form extends React.Component {
 	render(){
 		const { props } = this;
 
-		const isCompetition = props.label === 'competition';
-
 		return(
 			<form 
-				className={( (props.mixClass ? props.mixClass : '') + ' forum-form')}
+				className={( (props.mixClass ? props.mixClass : '') + ' comments-form')}
 				onSubmit={this._submitFormHandler()}
 				method="post"
 				action="#"
 				ref="form"
-			>
+			>	
+				<h4 className="comments-form__title">
+					Оставьте свой комментарий
+				</h4>
 
-				<h1 className="forum-form__title">
-					{(!isCompetition ? 'Задайте свой вопрос психологу' : 'Отправьте свой совет на конкурс')}
-				</h1>
-
-				<div className="forum-form__textarea-placeholder">
+				<div className="comments-form__textarea-placeholder">
 
 					<textarea 
 						name="message" 
 						cols="30" 
-						rows={(!isCompetition ? 7 : 20)}
-						className="forum-form__textarea"
-						placeholder={(!isCompetition ? 'Опишите вашу проблему' : '')}
-						value={props.forumForm.message}
+						rows={7}
+						className="comments-form__textarea"
+						placeholder="Текст комментария"
+						value={props.commentsForm.message}
 						onChange={this._messageChangeHandler()}
 					/>
 
 				</div>
 
 				<FormPostAdded 
-					postAdded={props.forumForm.postAdded}
+					commentAdded={props.commentsForm.commentAdded}
 				/>
 
 				<FormQuote 
@@ -99,15 +96,15 @@ class Form extends React.Component {
 					deleteQuoteHandler={this._deleteQuoteHandler()}
 				/>
 
-				<div className="forum-form__bottom">
+				<div className="comments-form__bottom">
 
-					<div className="forum-form__action-placeholder">
+					<div className="comments-form__action-placeholder">
 
 						<Button 
 							type="submit" 
-							mixClass="forum-form__button"
-							size="l"
-							color="blue-dark"
+							mixClass="comments-form__button"
+							size="s"
+							color="orange"
 						>
 							Отправить
 						</Button>
@@ -115,9 +112,9 @@ class Form extends React.Component {
 					</div>
 
 					{(
-						!isCompetition 
+						true 
 						? 	<FormAnon 
-								checked={props.forumForm.anon}
+								checked={props.commentsForm.anon}
 								onChangeHandler={this._anonChangeHandler()}
 							/>
 						: null
@@ -134,15 +131,15 @@ class Form extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({
 	user: state.user,
-	quote: state.posts.quote,
-	forumForm: state.forumForm,
-	label: state.posts.label,
+	quote: state.comments.quote,
+	commentsForm: state.commentsForm,
+	label: state.comments.label,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-	formChange: (data) => dispatch(forumFormActions.formChange(data)),	
-	forumFormSubmit: () => dispatch(asyncActions.forumFormSubmit()),	
-	deleteQuote: () => dispatch(forumFormActions.deleteQuote()),
+	formChange: (data) => dispatch(commentsFormActions.formChange(data)),	
+	commentsFormSubmit: () => dispatch(asyncActions.commentsFormSubmit()),	
+	deleteQuote: () => dispatch(commentsFormActions.deleteQuote()),
 });
 
 Form.propTypes = {

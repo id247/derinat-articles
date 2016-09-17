@@ -1,18 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { ForumOptions } from 'appSettings';
+import { CommentsOptions } from 'appSettings';
 
-import Post from '../../components/forum/Post';
-import Pagination from '../../components/forum/Pagination';
+import Comment from '../../components/comments/Comment';
+import Pagination from '../../components/comments/Pagination';
 
 import * as asyncActions from '../../actions/async';
 
-class Posts extends React.Component {
+class Comments extends React.Component {
 
 	componentWillMount(){
 		const { props } = this;
-		props.getPosts();
+		props.getComments();
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -23,31 +23,29 @@ class Posts extends React.Component {
 
 		if (oldPageNumber !== newPageNumber){
 			props.setPage(newPageNumber);
-			props.getPosts();
+			props.getComments();
 		}
 	}
 
 	render(){
 		const { props } = this;
 
-		if (!props.profile.roles){
-			return null;
-		}
-
-		const pagesCount = Math.ceil(props.postsTotalCount / ForumOptions.pageSize);
+		const pagesCount = Math.ceil(props.commentsTotalCount / CommentsOptions.pageSize);
+		
+		console.log(props.comments);
 
 		return(
-			<div className={( (props.mixClass ? props.mixClass : '') + ' posts')}>
+			<div className={( (props.mixClass ? props.mixClass : '') + ' comments-list')}>
 
-				<ul className="posts__list">
+				<ul className="comments-list__list">
 
-					{props.posts.map( (post,i) => (
+					{props.comments.map( (comment, i) => (
 
-						<Post 
-							mixClass="posts__item"
-							post={post}
+						<Comment 
+							mixClass="comments-list__item"
+							comment={comment}
 							label={props.label}
-							key={'post' + post.Id}
+							key={'comment' + comment.Id}
 						/>
 
 					))}
@@ -55,7 +53,7 @@ class Posts extends React.Component {
 				</ul>
 
 				<Pagination
-					mixClass="posts__pagination"
+					mixClass="comments-list__pagination"
 					pagesCount={pagesCount}
 				/>
 
@@ -67,17 +65,18 @@ class Posts extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({
 	profile: state.user.profile,
-	posts: state.posts.list,
-	postsTotalCount: state.posts.itemsTotalCount,
-	label: state.posts.label,
+	comments: state.comments.list,
+	commentsTotalCount: state.comments.itemsTotalCount,
+	label: state.comments.label,
+	pageNumber: state.comments.page,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
 	setPage: (pageId) => dispatch(asyncActions.setPage(pageId)),
-	getPosts: () => dispatch(asyncActions.getPosts()),
+	getComments: () => dispatch(asyncActions.getComments()),
 });
 
-Posts.propTypes = {
+Comments.propTypes = {
 	mixClass: React.PropTypes.string,
 //	Array: React.PropTypes.array.isRequired,
 //	Bool: React.PropTypes.bool.isRequired,
@@ -88,4 +87,4 @@ Posts.propTypes = {
 //	Symbol: React.PropTypes.symbol.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Posts);
+export default connect(mapStateToProps, mapDispatchToProps)(Comments);

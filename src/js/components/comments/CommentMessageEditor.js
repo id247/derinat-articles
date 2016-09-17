@@ -5,12 +5,12 @@ import { connect } from 'react-redux';
 import Button 				from '../../components/common/Button';
 
 import * as asyncActions 	from '../../actions/async';
-import * as postsActions 	from '../../actions/posts';
+import * as commentsActions 	from '../../actions/comments';
 
-class PostMessageEditor extends React.Component {
+class CommentMessageEditor extends React.Component {
 
 
-	_editPostHandler = () => (e) => {
+	_editCommentHandler = () => (e) => {
 		e.preventDefault();
 
 		const newMessage = e.target.elements.newMessage ? e.target.elements.newMessage.value : false;
@@ -25,19 +25,19 @@ class PostMessageEditor extends React.Component {
 			newQuoteMessage,
 		}
 
-		this.props.editPost(data);
+		this.props.editComment(data);
 	}
 
 	_cancelHandler = () => (e) => {
 		e.preventDefault();
-		this.props.postsEditOff();
+		this.props.commentsEditOff();
 	}
 
 	render(){
 		const { props } = this;
-		const { post } = props;
+		const { comment } = props;
 		
-		if (!post || Object.keys(post).length === 0 ){
+		if (!comment || Object.keys(comment).length === 0 ){
 			return false;
 		}
 
@@ -45,37 +45,37 @@ class PostMessageEditor extends React.Component {
 		let quoteValue;
 
 		try {
-			value = JSON.parse(decodeURIComponent(post.Value));
+			value = JSON.parse(decodeURIComponent(comment.Value));
 		}catch(e){
 			console.error(e);
-			console.error('error JSON in post ' + post.Key);
-			return (<div>error JSON in post {post.Key}</div>);
+			console.error('error JSON in comment ' + comment.Key);
+			return (<div>error JSON in comment {comment.Key}</div>);
 		}
 
 		try {
 			quoteValue = value.quote ? JSON.parse(decodeURIComponent(value.quote.Value)) : false;
 		}catch(e){
 			console.error(e);
-			console.error('error JSON in post quote ' + post.Key);
-			return (<div>error JSON in post {post.Key}</div>);
+			console.error('error JSON in comment quote ' + comment.Key);
+			return (<div>error JSON in comment {comment.Key}</div>);
 		}
 
 		console.log(value);
 		console.log(quoteValue);
 
 		return(
-			<form className="post__editor post-editor" action="#"
-				onSubmit={this._editPostHandler()}
+			<form className="comment__editor comment-editor" action="#"
+				onSubmit={this._editCommentHandler()}
 			>
 				
-				<div className="post-editor__row">
+				<div className="comment-editor__row">
 
-					<div className="post-editor__title">
+					<div className="comment-editor__title">
 						Текст сообщения
 					</div>
 				
 					<textarea 
-						className="post-editor__textarea" 
+						className="comment-editor__textarea" 
 						name="newMessage" cols="30" rows="10" 
 						defaultValue={value.message} 
 					/>
@@ -85,14 +85,14 @@ class PostMessageEditor extends React.Component {
 				{
 					quoteValue
 					? (
-						<div className="post-editor__row">
+						<div className="comment-editor__row">
 
-							<div className="post-editor__title">
+							<div className="comment-editor__title">
 								Текст цитаты
 							</div>
 						
 							<textarea 
-								className="post-editor__textarea" 
+								className="comment-editor__textarea" 
 								name="newQuoteMessage" cols="30" rows="10" 
 								defaultValue={quoteValue.message} 
 							/>
@@ -103,11 +103,11 @@ class PostMessageEditor extends React.Component {
 				}
 				
 				
-				<div className="post-editor__buttons">
+				<div className="comment-editor__buttons">
 
 					<Button 
 						type="button" 
-						mixClass="post-editor__button" 
+						mixClass="comment-editor__button" 
 						color="blue-light"
 						size="s"
 						onClickHandler={this._cancelHandler()}
@@ -117,7 +117,7 @@ class PostMessageEditor extends React.Component {
 
 					<Button 
 						type="submit" 
-						mixClass="post-editor__button" 
+						mixClass="comment-editor__button" 
 						color="blue-light"
 						size="s"
 					>
@@ -135,12 +135,12 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-	editPost: (data) => dispatch(asyncActions.editPost(ownProps.post, data)),
-	postsEditOff: () => dispatch(postsActions.postsEditOff()),
+	editComment: (data) => dispatch(asyncActions.editComment(ownProps.comment, data)),
+	commentsEditOff: () => dispatch(commentsActions.commentsEditOff()),
 });
 
-PostMessageEditor.propTypes = {
-	post: React.PropTypes.oneOfType([
+CommentMessageEditor.propTypes = {
+	comment: React.PropTypes.oneOfType([
     	React.PropTypes.bool,
     	React.PropTypes.object,
     ]).isRequired,
@@ -153,4 +153,4 @@ PostMessageEditor.propTypes = {
 //	Symbol: React.PropTypes.symbol.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostMessageEditor);
+export default connect(mapStateToProps, mapDispatchToProps)(CommentMessageEditor);

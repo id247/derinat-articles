@@ -1,7 +1,14 @@
-export function scrollTo(element, to, duration) {
-	var start = element.scrollTop,
-		change = to - start,
-		increment = 20;
+export function scrollTo(element, elementTo, duration) {
+	const bodyRect = document.body.getBoundingClientRect();
+	const elemRect = elementTo.getBoundingClientRect();
+	const to = elemRect.top - bodyRect.top;
+
+	console.log(to);
+
+	const increment = 20;
+
+	let start = element.scrollTop;
+	let change = to - start;
 
 	function easeInOut(currentTime, start, change, duration) {
 	    currentTime /= duration / 2;

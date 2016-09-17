@@ -1,19 +1,19 @@
 import React from 'react';
 
-const PostMessage = (props) => (
-	<div className="post__text text">			
+const CommentMessage = (props) => (
+	<div className="comment__text text">			
 		{props.message.split('\n').map( (item, i) => (
-			<p key={props.postId + '-' + i + new Date().getTime()}>
+			<p key={props.commentId + '-' + i + new Date().getTime()}>
 				{item}
 			</p>
 		))}
 	</div>
 );
 
-PostMessage.propTypes = {
+CommentMessage.propTypes = {
 	mixClass: React.PropTypes.string,
 	message: React.PropTypes.string,
-	postId: React.PropTypes.number.isRequired,
+	commentId: React.PropTypes.number.isRequired,
 //	Array: React.PropTypes.array.isRequired,
 //	Bool: React.PropTypes.bool.isRequired,
 //	Func: React.PropTypes.func.isRequired,
@@ -23,4 +23,4 @@ PostMessage.propTypes = {
 //	Symbol: React.PropTypes.symbol.isRequired,
 };
 
-export default PostMessage;
+export default CommentMessage;

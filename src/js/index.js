@@ -10,7 +10,7 @@ const store = configureStore();
 
 ReactDOM.render(
 	<Root store={store} />,
-	document.getElementById('forum-app')
+	document.getElementById('comments')
 );
 
 

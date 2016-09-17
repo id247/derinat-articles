@@ -2,23 +2,29 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import * as asyncActions from '../actions/async';
-import * as postsActions from '../actions/posts';
+import * as commentsActions from '../actions/comments';
 
 class App extends React.Component {
 
 	componentWillMount(){
 		const { props } = this;
-		const pageNumber = props.params.pageNumber ? parseInt(props.params.pageNumber) : 1;
-		//this.props.setPostsPage(pageNumber);
-		this.props.setPage(pageNumber);
 
-		if (window.location.href.indexOf('forum-mothers') > -1){
-			this.props.setPostsLabel('mothers');
-		}else if ((window.location.href.indexOf('forum-girls') > -1)){
-			this.props.setPostsLabel('girls');
-		}else if ((window.location.href.indexOf('competition') > -1)){
-			this.props.setPostsLabel('competition');
-		}	
+
+		// if (window.location.href.indexOf('forum-mothers') > -1){
+		// 	this.props.setPostsLabel('mothers');
+		// }else if ((window.location.href.indexOf('forum-girls') > -1)){
+		// 	this.props.setPostsLabel('girls');
+		// }else if ((window.location.href.indexOf('competition') > -1)){
+		// 	this.props.setPostsLabel('competition');
+		// }	
+
+//		this.props.setCommentsPage(props.pageNumber);
+//		
+		console.log(document.location);
+
+		const label = document.location.host + document.location.pathname;
+
+		this.props.setCommentsLabel(label);
 		
 		props.init();
 	}
@@ -29,13 +35,15 @@ class App extends React.Component {
 	}
 }
 
-const mapStateToProps = null;
+const mapStateToProps = (state, ownProps) => ({
+	pageNumber: state.comments.page,
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
 	init: () => dispatch(asyncActions.init()), 
 	setPage: (pageId) => dispatch(asyncActions.setPage(pageId)),
-	setPostsPage: (pageId) => dispatch(postsActions.setPage(pageId)),
-	setPostsLabel: (label) => dispatch(postsActions.setPostsLabel(label)),
+	setCommentsPage: (pageId) => dispatch(commentsActions.setPage(pageId)),
+	setCommentsLabel: (label) => dispatch(commentsActions.setLabel(label)),
 });
 
 App.propTypes = {
