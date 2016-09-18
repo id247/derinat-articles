@@ -9,9 +9,9 @@
 // }
 
 
+$ubuntu: Ubuntu;
 
-
-$mainFontFamily: 'Helvetica Neue', Helvetica, sans-serif;
+$mainFontFamily: $ubuntu, Helvetica, sans-serif;
 
 //
 //colors
