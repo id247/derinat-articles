@@ -59,7 +59,7 @@ class Comment extends React.Component {
 		}
 
 
-		const isPsyco = (value.user.id !== 0 && CommentsOptions.adminId.indexOf(value.user.id) > -1 );
+		const isAdmin = (value.user.id !== 0 && CommentsOptions.adminId.indexOf(value.user.id) > -1 );
 		const icanEditComment = 
 							(	
 								value.user.id !== 0 
@@ -77,7 +77,7 @@ class Comment extends React.Component {
 		
 		return (
 
-			<li className={( (props.mixClass ? props.mixClass : '') + ' comment ' + (isPsyco ? 'comment--super' : '') )} key={'comment' + comment.Id}>
+			<li className={( (props.mixClass ? props.mixClass : '') + ' comment ' + (isAdmin ? 'comment--super' : '') )} key={'comment' + comment.Id}>
 
 				<CommentAvatar 
 					image={value.user.photoSmall}
@@ -88,7 +88,7 @@ class Comment extends React.Component {
 					<CommentInfo 
 						comment={comment}
 						user={value.user}
-						isPsyco={isPsyco}
+						isAdmin={isAdmin}
 					/>
 
 					{

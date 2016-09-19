@@ -1,0 +1,121 @@
+
+/* ==========================================================================
+ * app
+ * ========================================================================== */
+
+.app{
+	position: relative;
+
+	&__title{
+		font-size: 30px;
+		font-weight: 400;
+		margin: 0 0 30px;
+	}
+
+	&__loader{
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 500;
+	}
+
+	&__error{
+		position: fixed;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 550;
+	}
+
+	&__comments{
+		margin: 0 0 50px;
+	}
+
+	&__user{
+		margin: 0 0 20px;
+	}
+}
+
+
+.app-user{
+	@include clearfix;
+
+	&__avatar-placeholder{
+		float: left;
+		border-radius: 8px;
+		width: 45px;
+		height: 45px;
+		overflow: hidden;
+	}
+
+	&__avatar{
+		width: 100%;
+		height: auto;
+	}
+
+	&__content{
+		margin: 0 0 0 55px;
+	}
+
+	&__name{
+		margin: 0 0 5px;
+	}
+}
+
+/* ==========================================================================
+ * loader
+ * ========================================================================== */
+
+.loader{
+	background: rgba(255,255,255,.5);	
+	text-align: center;
+	opacity: 0;
+	visibility: hidden;
+	
+	transition: all .2s;
+
+	display: flex;
+
+	align-items: center;
+	justify-content: center;
+	
+	&__content{
+		width: 40px;
+		height: 40px;
+		display: inline-block;
+		animation: spin .6s infinite linear;
+	}
+
+	&--visible{
+		opacity: 1;
+		visibility: visible;
+	}
+}
+
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}
+
+
+.app-error-message{
+	padding: 10px;
+	background: #ff7f7f;
+}
+
+/* ==========================================================================
+ * comments-login
+ * ========================================================================== */
+
+
+.app-login{
+	text-align: center;
+
+	&__button-placeholder{
+		
+	}
+	
+
+}

@@ -5,7 +5,12 @@ const CommentInfo = (props) => {
 	return(
 		<div className="comment__info">
 
-			<span className="comment__name">{props.user.firstName} {props.user.lastName} {(props.isPsyco ? '(Психолог)' : '')}</span>
+			<span className="comment__name">
+			{props.user.firstName} 
+			{' '}
+			{props.user.lastName} 
+			{' '}
+			{(props.isAdmin ? '(Администратор)' : '')}</span>
 			{' / '}
 			<span className="comment__time">{date}</span>
 
@@ -16,7 +21,7 @@ const CommentInfo = (props) => {
 CommentInfo.propTypes = {
 	mixClass: React.PropTypes.string,
 	user: React.PropTypes.object,
-	isPsyco: React.PropTypes.bool,
+	isAdmin: React.PropTypes.bool,
 	comment: React.PropTypes.oneOfType([
     	React.PropTypes.bool,
     	React.PropTypes.object,

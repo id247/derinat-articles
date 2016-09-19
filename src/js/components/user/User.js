@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { commentsOptions } from 'appSettings';
-
 import * as asyncActions from '../../actions/async';
 
 class User extends React.Component {
@@ -15,24 +13,24 @@ class User extends React.Component {
 	render(){
 		const { props } = this;
 
-		const avatar = props.profile.photoMedium ? props.profile.photoMedium : commentsOptions.anonAvatar
+		const avatar = props.profile.photoMedium;
 
 		return(
-			<div className={( (props.mixClass ? props.mixClass : '') + ' comments-user')}>
+			<div className={( (props.mixClass ? props.mixClass : '') + ' app-user')}>
 
-				<div className="comments-user__avatar-placeholder">
+				<div className="app-user__avatar-placeholder">
 
-					<img src={avatar} alt="" className="comments-user__avatar" />
+					<img src={avatar} alt="" className="app-user__avatar" />
 
 				</div>
 
-				<div className="comments-user__content">
+				<div className="app-user__content">
 				
-					<div className="comments-user__name">
+					<div className="app-user__name">
 						Вы вошли как {props.profile.firstName}  {props.profile.lastName} 
 					</div>
 
-					<div className="comments-user__logout">
+					<div className="app-user__logout">
 
 						<button 
 							className="button button--xs button--orange"

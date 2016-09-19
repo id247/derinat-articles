@@ -17,10 +17,9 @@
 // }
 
 export const CommentsOptions = {	
-	pageSize: 15,
+	pageSize: 5,
 	adminId: [
-		'1000005449055',
-		'1000001035607'
+		'1000005031742'
 	],
 	anonAvatar: 'https://static.dnevnik.ru/images/avatars/user/a.m.jpg',
 }

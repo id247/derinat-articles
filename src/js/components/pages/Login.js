@@ -19,23 +19,19 @@ class Login extends React.Component {
 		const { props } = this;
 		
 		return (
-			<div className="comments__section comments-login">
+			<div className="app__page app-login">
 				
-				<div className="comments__wrap comments-login__wrap">
+				<div className="app-login__button-placeholder">
 
-					<div className="comments-login__button-placeholder">
-
-						<Button 
-							size="m"
-							color="orange"
-							type="button"
-							onClickHandler={props.login}
-						>
-							Войти через Дневник.ру
-						</Button>
-					
-					</div>
-
+					<Button 
+						size="m"
+						color="orange"
+						type="button"
+						onClickHandler={props.login}
+					>
+						Войти через Дневник.ру
+					</Button>
+				
 				</div>
 
 			</div>

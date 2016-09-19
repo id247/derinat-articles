@@ -145,7 +145,7 @@ export function addComment(value) {
 			if (pageNumber === 1){
 				dispatch(getComments());
 			}else{
-				dispatch(setPage(1, false));
+				dispatch(setCommentsPage(1));
 			}
 
 		})
@@ -377,14 +377,13 @@ export function addQuote(quote) {
 }
 
 
-export function setPage(pageId) {
+export function setCommentsPage(pageId) {
 
 	return (dispatch, getState) => {
 
 		const pageUrl = pageId > 1 ? '/page/' + pageId : '/';
 
 		if (getState().comments && getState().comments.page !== pageId){
-			dispatch(pageActions.setPage(pageUrl)); 		
 			dispatch(commentsActions.setPage(pageId)); 
 			visual.scrollTo(document.body, document.querySelector('.comments'), 200);
 		}	

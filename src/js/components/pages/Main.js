@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 
 //import * as asyncActions from '../../actions/async';
 
-import Form from '../../components/comments/Form';
+import User 	from '../../components/user/User';
 import Comments from '../../components/comments/Comments';
-import User from '../../components/comments/User';
 
 class Main extends React.Component {
 
@@ -15,10 +14,9 @@ class Main extends React.Component {
 			return null;
 		}
 		return(
-			<div className="comments__content">
-				<User mixClass="comments__user" />
-				<Form mixClass="comments__form" />
-				<Comments mixClass="comments__list" />
+			<div className="app__content">
+				<User mixClass="app__user" />
+				<Comments mixClass="app__comments" />
 			</div>
 		);
 	}

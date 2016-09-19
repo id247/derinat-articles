@@ -37,7 +37,7 @@ const Pagination = (props) => {
 							onClick={ (e) => {
 								e.preventDefault();
 								const pageId = i;
-								props.setPostsPage(pageId);
+								props.setCommentsPage(pageId);
 							}}
 						>
 							{i}
@@ -59,7 +59,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-	setPostsPage: (pageId) => dispatch(asyncActions.setPage(pageId)),
+	setCommentsPage: (pageId) => dispatch(asyncActions.setCommentsPage(pageId)),
 });
 
 Pagination.propTypes = {

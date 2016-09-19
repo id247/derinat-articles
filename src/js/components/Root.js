@@ -22,26 +22,24 @@ import ErrorMessage 	from '../components/error/ErrorMessage';
 
 class Root extends React.Component {
 
-
-
 	render() {		
 		return (
 			<Provider store={this.props.store}>		
-				<section className="comments">		
-
-					<h3 className="comments__title">
+				<section className="app">	
+				
+					<h3 className="app__title">
 						Комментарии
 					</h3>
-					
+		
 					<Router />
 					
 					<Loading 
-						mixClass="comments__loader"
+						mixClass="app__loader"
 						visibleClass="loader--visible"
 					/>
 					
 					<ErrorMessage 
-						mixClass="comments__error"
+						mixClass="app__error"
 					/>
 				</section>
 			</Provider>
