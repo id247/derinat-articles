@@ -116,11 +116,33 @@
 	}
 }
 
+.arrow-link{
+
+	&:hover{
+		.arrow-link__text{
+			border-color: transparent;
+		}
+	}
+
+	&__text{
+		transition: all .2s;
+		border-bottom: 1px solid;
+	}
+}
+
 /* ==========================================================================
  * article
  * ========================================================================== */
 
 .article{
+
+	&__back-palceholder{
+		margin: 0 0 20px;
+	}
+
+	&__back{
+	}
+
 
 	&__image-placeholder{
 		width: 45%;
