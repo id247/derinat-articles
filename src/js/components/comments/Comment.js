@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { HTMLdecode } from '../../helpers/escape';
+
 import { CommentsOptions }		from 'appSettings';
 
 
@@ -51,7 +53,7 @@ class Comment extends React.Component {
 		let value;
 
 		try{
-			value = JSON.parse(decodeURIComponent(comment.Value));
+			value = JSON.parse( HTMLdecode(comment.Value) );
 		}catch(e){
 			console.error(e);
 			console.error('error JSON in comment ' + comment.Key);

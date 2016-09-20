@@ -2,6 +2,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { HTMLdecode } from '../../helpers/escape';
+
 import Button 				from '../../components/common/Button';
 
 import * as asyncActions 	from '../../actions/async';
@@ -45,7 +47,7 @@ class CommentMessageEditor extends React.Component {
 		let quoteValue;
 
 		try {
-			value = JSON.parse(decodeURIComponent(comment.Value));
+			value = JSON.parse(HTMLdecode(comment.Value));
 		}catch(e){
 			console.error(e);
 			console.error('error JSON in comment ' + comment.Key);
@@ -53,15 +55,12 @@ class CommentMessageEditor extends React.Component {
 		}
 
 		try {
-			quoteValue = value.quote ? JSON.parse(decodeURIComponent(value.quote.Value)) : false;
+			quoteValue = value.quote ? JSON.parse(HTMLdecode(value.quote.Value)) : false;
 		}catch(e){
 			console.error(e);
 			console.error('error JSON in comment quote ' + comment.Key);
 			return (<div>error JSON in comment {comment.Key}</div>);
 		}
-
-		console.log(value);
-		console.log(quoteValue);
 
 		return(
 			<form className="comment__editor comment-editor" action="#"
@@ -136,7 +135,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
 	editComment: (data) => dispatch(asyncActions.editComment(ownProps.comment, data)),
-	commentsEditOff: () => dispatch(commentsActions.commentsEditOff()),
+	commentsEditOff: () => dispatch(commentsActions.editOff()),
 });
 
 CommentMessageEditor.propTypes = {

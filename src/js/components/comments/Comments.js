@@ -14,12 +14,25 @@ import Pagination from '../../components/comments/Pagination';
 class Comments extends React.Component {
 	componentWillMount(){
 		const { props } = this;
-		
-		const label = document.location.host + document.location.pathname;
 
-		props.setCommentsLabel(label);
+		this._setLabel();
 
 		props.getComments();
+	}
+
+	_setLabel(){
+		const { props } = this;
+
+		let host = document.location.host;
+		let pathname = document.location.pathname;
+
+		if (pathname[pathname.length - 1] === '/'){
+			pathname = pathname.slice(0, -1);
+		}
+
+		const label = (host + pathname);
+		
+		props.setCommentsLabel(label);
 	}
 	
 	componentWillReceiveProps(nextProps){

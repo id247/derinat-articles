@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { HTMLdecode } from '../../helpers/escape';
+
 import CommentMessage 			from '../../components/comments/CommentMessage';
 import CommentInfo 			from '../../components/comments/CommentInfo';
 import CommentAvatar 			from '../../components/comments/CommentAvatar';
@@ -16,7 +18,7 @@ class CommentQuoted extends React.Component {
 		let value;
 
 		try{
-			value = JSON.parse(decodeURIComponent(comment.Value));
+			value = JSON.parse(HTMLdecode(comment.Value));
 		}catch(e){
 			console.error(e);
 			console.error('error JSON in comment ' + (props.parentCommentKey ? props.parentCommentKey : 'quoted comment') ) ;

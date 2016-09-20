@@ -1,7 +1,10 @@
 import API from '../api/api';
 import OAuth from '../api/hello';
 
+import { HTMLencode, HTMLdecode } from '../helpers/escape';
+ 
 import { CommentsOptions } from 'appSettings';
+
 
 import * as visual from '../helpers/visual.js';
 
@@ -11,6 +14,7 @@ import * as userActions 		from '../actions/user';
 import * as pageActions 		from '../actions/page';
 import * as commentsActions 	from '../actions/comments';
 import * as commentsFormActions from '../actions/comments-form';
+
 
 
 //error handler
@@ -259,7 +263,7 @@ export function editComment(comment, data) {
 		let oldValue 
 
 		try{
-			oldValue = JSON.parse(decodeURIComponent(comment.Value));
+			oldValue = JSON.parse(HTMLdecode(comment.Value));
 		}catch(e){
 			console.error(e);
 			return false;
@@ -270,7 +274,7 @@ export function editComment(comment, data) {
 		let oldQuoteValue;
 
 		try{
-			oldQuoteValue = oldQuote ? JSON.parse(decodeURIComponent(oldQuote.Value)) : false;
+			oldQuoteValue = oldQuote ? JSON.parse(HTMLdecode(oldQuote.Value)) : false;
 		}catch(e){
 			console.error(e);
 			return false;
@@ -288,7 +292,7 @@ export function editComment(comment, data) {
 				}
 			};
 
-			newQuoteValue = encodeURIComponent(JSON.stringify(newQuoteValue));
+			newQuoteValue = HTMLencode(JSON.stringify(newQuoteValue));
 
 			newQuote = {
 				...oldValue.quote,
@@ -316,7 +320,7 @@ export function editComment(comment, data) {
 		console.log(oldValue);
 		console.log(newValue);
 
-		newValue = encodeURIComponent(JSON.stringify(newValue));
+		newValue = HTMLencode(JSON.stringify(newValue));
 
 		const newComment = {...comment, ...{Value: newValue}};
 
@@ -431,7 +435,9 @@ export function commentsFormSubmit() {
 			quote: quote,
 		}
 
-		value = encodeURIComponent(JSON.stringify(value));
+		value = HTMLencode(JSON.stringify(value));
+
+		console.log(value);
 
 		dispatch(addComment(value));
 		
