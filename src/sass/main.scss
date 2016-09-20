@@ -16,6 +16,61 @@
 	&__section{
 		//position: relative;
 	}
+
+	&__image{
+		position: absolute;
+		display: block;
+		
+		&--1{
+			top: 100px;	
+			left: 50%;
+			margin-left: -870px;
+			width: 357px;
+			transform-origin: 100% 0;
+
+			@media (max-width: 1400px){
+				margin-left: -770px;
+			}
+		}
+
+		&--2{
+			top: 20px;	
+			left: 50%;
+			margin-left: 470px;	
+			transform-origin: 0 0;
+
+			@media (max-width: 1400px){
+				margin-left: 400px;	
+			}
+		}
+
+		@media (max-width: 1540px){
+			transform: scale(.6);
+		}
+
+		@media (max-width: 1200px){
+			transform: scale(.6);
+		}
+
+		@media (max-width: 1100px){
+			display: none;
+		}
+	}
+
+	&__content{
+		position: relative;
+		max-width: 1000px;
+		padding: 0 0;
+		margin: 0 auto 0;
+
+		@media (max-width: 1400px){
+			max-width: 800px;
+		}
+
+		@media (max-width: 1100px){
+			max-width: 940px;
+		}
+	}
 }
 
 /* ==========================================================================
@@ -25,10 +80,16 @@
 .section{
 	padding: 30px 0 30px;
 
+	&--bg{
+		background: #fff;
+		border-radius: 10px 10px 0 0;
+	}
+
+
 	&__wrap{
 		@include clearfix;
 		max-width: 960px;
-		padding: 0 10px;
+		padding: 0 20px;
 		margin: auto;
 	}
 
@@ -44,6 +105,12 @@
 	}
 }
 
+/* ==========================================================================
+ * section
+ * ========================================================================== */
+
+
+
 
 /* ==========================================================================
  * header
@@ -51,6 +118,25 @@
 .header{
 	padding: 10px 0 10px;
 	height: 189px;
+	position: relative;
+	overflow: hidden;
+	@media (max-width: 1100px){
+		overflow: visible;
+	}
+
+	&:after{
+		content: url(../images/pers/1.png);
+		position: absolute;
+		bottom: -3px;
+		left: 60%;
+
+		@media (max-width: 1100px){
+			content: url(../images/pers/4.png);
+			left: 65%;
+			bottom: auto;
+			top: 5px;
+		}
+	}
 
 	&__logo-placeholder{
 		margin: 0 0 0 45px;
@@ -76,6 +162,10 @@
 
 	&__list{
 		margin: 0 -6% -30px 0;
+
+		@media (max-width: 1200px){
+			margin-right: 0;
+		}
 	}
 
 	&__item{
@@ -83,6 +173,11 @@
 		vertical-align: top;
 		width: 46%;
 		margin: 0 1.5% 30px 0;
+
+		@media (max-width: 1200px){
+			width: 100%;
+			margin-right: 0;
+		}
 	}
 }
 
@@ -100,6 +195,9 @@
 		margin: 0 0 20px;
 		overflow: hidden;
 		height: 250px;
+		@media (max-width: 1200px){
+			height: auto;
+		}
 	}
 
 	&__image{

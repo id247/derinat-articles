@@ -6,12 +6,18 @@ import ReactDOM from 'react-dom';
 import configureStore from './store/configureStore';
 import Root from './components/Root';
 
-const store = configureStore(); 
+const comments = document.getElementById('comments');
 
-ReactDOM.render(
-	<Root store={store} />,
-	document.getElementById('comments')
-);
+if (comments){
+
+	const store = configureStore(); 
+	
+	ReactDOM.render(
+		<Root store={store} />,
+		comments
+	);
+
+}
 
 
 
