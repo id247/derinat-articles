@@ -44,15 +44,18 @@
 			}
 		}
 
-		@media (max-width: 1540px){
+		@media (max-width: 1700px){
+			transform: scale(.8);
+		}
+		@media (max-width: 1600px){
+			transform: scale(.6);
+		}
+
+		@media (max-width: 1300px){
 			transform: scale(.6);
 		}
 
 		@media (max-width: 1200px){
-			transform: scale(.6);
-		}
-
-		@media (max-width: 1100px){
 			display: none;
 		}
 	}
@@ -67,7 +70,7 @@
 			max-width: 800px;
 		}
 
-		@media (max-width: 1100px){
+		@media (max-width: 1200px){
 			max-width: 940px;
 		}
 	}
@@ -120,8 +123,9 @@
 	height: 189px;
 	position: relative;
 	overflow: hidden;
-	@media (max-width: 1100px){
+	@media (max-width: 1200px){
 		overflow: visible;
+		height: 200px;
 	}
 
 	&:after{
@@ -130,7 +134,7 @@
 		bottom: -3px;
 		left: 60%;
 
-		@media (max-width: 1100px){
+		@media (max-width: 1200px){
 			content: url(../images/pers/4.png);
 			left: 65%;
 			bottom: auto;
