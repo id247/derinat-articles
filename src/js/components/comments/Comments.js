@@ -81,6 +81,7 @@ class Comments extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({
 	commentsTotalCount: state.comments.itemsTotalCount,
+	pageNumber: state.comments.page,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
