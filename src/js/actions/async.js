@@ -186,27 +186,27 @@ export function getComments() {
 		return API.getKeysFromDBdesc(label, pageNumber, CommentsOptions.pageSize)
 		.then( res => {
 			comments = res;
-			return API.getCoutersFromDBdesc(label);
-		})
-		.then( res => {
-			counters = res;
+			//return API.getCoutersFromDBdesc(label);
+		//})
+		//.then( res => {
+			counters = false;
 
 			dispatch(loadingActions.loadingHide());
 
-			console.log(comments.Keys);
-			console.log(counters);
+			// console.log(comments.Keys);
+			// console.log(counters);
 
-			comments.Keys = comments.Keys.map( key => {
-				key.counter = false;
+			// comments.Keys = comments.Keys.map( key => {
+			// 	key.counter = false;
 
-				counters.Counters && counters.Counters.map( counter => {
-					if (parseInt(counter.Name) === key.Id){
-						key.counter = counter;
-					}
-				});
+			// 	counters.Counters && counters.Counters.map( counter => {
+			// 		if (parseInt(counter.Name) === key.Id){
+			// 			key.counter = counter;
+			// 		}
+			// 	});
 
-				return key;
-			});
+			// 	return key;
+			// });
 
 			console.log(comments, counters);
 			dispatch(commentsActions.addItems({comments: comments, counters: counters}));

@@ -117,11 +117,11 @@ class Comment extends React.Component {
 
 					<div className="comment__bottom">
 
-						<CommentLikes 
+						{/*<CommentLikes 
 							counter={comment.counter}
 							text={likesText}
 							clickHandler={this._voteHandler()}
-						/>
+						/>*/}
 
 						<CommentQuoteButton 
 							visible={true}
