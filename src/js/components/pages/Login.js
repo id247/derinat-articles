@@ -18,6 +18,8 @@ class Login extends React.Component {
 	render(){
 		const { props } = this;
 		
+		const site = location.href.indexOf('mosreg') > -1 ? 'Школьный портал' : 'Дневник.ру';
+
 		return (
 			<div className="app__page app-login">
 				
@@ -29,7 +31,7 @@ class Login extends React.Component {
 						type="button"
 						onClickHandler={props.login}
 					>
-						Войти через Дневник.ру
+						Войти через {site}
 					</Button>
 				
 				</div>
